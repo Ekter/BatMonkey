@@ -9,3 +9,6 @@ Rapport du 05/01:
 
 Rapport du 12/01:
     [Lien](https://docs.google.com/document/d/1z_liG3VIGFFYdneoDFyZR4zDu5JIN25a7xqjqtwNbV0/edit?usp=sharing "Rapport du 12/01")
+
+Rapport du 31/01:
+    [Lien](https://docs.google.com/document/d/1lA0roPaRRoWotp5S8aMeMA055hF9ZXQf9yWVPteqkcM/edit?usp=sharing "Rapport du 31/01")
