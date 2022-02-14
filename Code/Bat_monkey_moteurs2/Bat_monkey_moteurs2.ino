@@ -1,16 +1,16 @@
 #include <Servo.h>
 
-Servo myservo; // create servo object to control a servo
+Servo myservo;
 Servo myservo2;
-Servo myservo3; // create servo object to control a servo
+Servo myservo3;
 Servo myservo4;
-Servo myservo5; // create servo object to control a servo
+Servo myservo5;
 Servo myservo6;
-Servo myservo7; // create servo object to control a servo
+Servo myservo7;
 Servo myservo8;
-bool monte = true; // false //  BLEUTOOTH
+bool monte = true; // false //  BLUETOOTH
 float speed = 5;
-float t; // i est l'étape actuel, pour savoir de combien changer !
+float t;
 
 void setup()
 {
