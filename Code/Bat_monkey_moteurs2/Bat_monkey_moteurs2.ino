@@ -8,7 +8,7 @@ Servo myservo5;
 Servo myservo6;
 Servo myservo7;
 Servo myservo8;
-bool monte = true; // false //  BLUETOOTH
+bool monte = true; // false BLUETOOTH
 float speed = 5;
 float t;
 
