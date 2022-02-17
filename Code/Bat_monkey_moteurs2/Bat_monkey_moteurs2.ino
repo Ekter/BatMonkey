@@ -8,21 +8,23 @@ Servo myservo5;
 Servo myservo6;
 Servo myservo7;
 Servo myservo8;
-bool monte = true; // false BLUETOOTH
+bool monte = true;
 float speed = 5;
-float t;
+float t = 0;
+int total_t = 0;
+int t2 = 0;
 
 void setup()
 {
-    myservo.attach(8);
-    myservo2.attach(9);
-    myservo3.attach(3);
-    myservo4.attach(3);
-    myservo5.attach(10);
-    myservo6.attach(11);
-    myservo7.attach(14);
-    myservo8.attach(13);
     Serial.begin(9600);
+    attachbetter(myservo, 8);
+    attachbetter(myservo2, 9);
+    attachbetter(myservo3, 3);
+    attachbetter(myservo4, 3);
+    attachbetter(myservo5, 10);
+    attachbetter(myservo6, 11);
+    attachbetter(myservo7, 14);
+    attachbetter(myservo8, 13);
 }
 
 void loop()
@@ -42,9 +44,39 @@ void loop()
         myservo6.write(f2(t + 128));
         myservo7.write(f1(t + 192));
         myservo8.write(f2(t + 192));
+        Serial.print("ETAPE:");
         Serial.println(t);
     }
-    Serial.println("En pause")
+    else
+    {
+        if (total_t > 100 + t2)                             // pour n'afficher qu'une fois toutes les 100 ms
+        {
+            Serial.println("En pause");
+            t2=total_t
+        }
+    }
+    delay(15 - speed);                                      // vitesse max=10 -> boucle en 1280 ms
+    total_t += 15 - speed;                                  // vitesse min=0  -> boucle en 3840 ms   ~ 3 fois plus lent
+    
+}
+
+void attachbetter(Servo servo, int pin)
+{
+    if (servo.attach(pin, 0, 180) == 0)
+    {                                                        // ,0,180 sert à rien mais renforce la sécurité
+        Serial.print("PROBLEME AVEC LE MOTEUR SUR LE PIN "); // renvoie 0 si le pin est valide (et connecté)
+        Serial.println(pin);
+    }
+}
+
+void writebetter(Servo servo, int angle)
+{
+    int diff_angle = servo.read() - angle;
+    if (diff_angle < -(15-speed) || diff_angle > 15-speed)  // impossible avec les fonctions actuelles sans problème de moteurs, le max est 2.6 et la borne est 5 à vitesse max
+    {
+        Serial.println("ATTENTION! ANGLE DEMANDE IMPORTANT, LE MOTEUR PEUT ETRE DECALE");
+    }
+    servo.write(angle);
 }
 
 float uh(float x)
