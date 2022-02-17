@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-Servo myservo;
+Servo myservo1;
 Servo myservo2;
 Servo myservo3;
 Servo myservo4;
@@ -8,16 +8,21 @@ Servo myservo5;
 Servo myservo6;
 Servo myservo7;
 Servo myservo8;
-bool monte = true;
+
+bool monte = false;
 float speed = 5;
 float t = 0;
 int total_t = 0;
 int t2 = 0;
+int code_erreur = 0;
 
 void setup()
 {
     Serial.begin(9600);
-    attachbetter(myservo, 8);
+    Serial1.begin(9600);
+    while (!Serial1)
+        ;
+    attachbetter(myservo1, 8);
     attachbetter(myservo2, 9);
     attachbetter(myservo3, 3);
     attachbetter(myservo4, 3);
@@ -36,7 +41,7 @@ void loop()
         {
             t = 0;
         }
-        myservo.write(f1(t));
+        myservo1.write(f1(t));
         myservo2.write(f2(t));
         myservo3.write(f1(t + 64));
         myservo4.write(f2(t + 64));
@@ -49,15 +54,16 @@ void loop()
     }
     else
     {
-        if (total_t > 100 + t2)                             // pour n'afficher qu'une fois toutes les 100 ms
+        if (total_t > 100 + t2) // pour n'afficher qu'une fois toutes les 100 ms
         {
-            Serial.println("En pause");
-            t2=total_t
+            Serial.println("EN PAUSE");
+            t2 = total_t;
         }
     }
-    delay(15 - speed);                                      // vitesse max=10 -> boucle en 1280 ms
-    total_t += 15 - speed;                                  // vitesse min=0  -> boucle en 3840 ms   ~ 3 fois plus lent
-    
+    delay(15 - speed);     // vitesse max=10 -> boucle en 1280 ms
+    total_t += 15 - speed; // vitesse min=0  -> boucle en 3840 ms   ~ 3 fois plus lent
+    Serial1.println(getTrame());
+    code_erreur=0;
 }
 
 void attachbetter(Servo servo, int pin)
@@ -66,17 +72,25 @@ void attachbetter(Servo servo, int pin)
     {                                                        // ,0,180 sert à rien mais renforce la sécurité
         Serial.print("PROBLEME AVEC LE MOTEUR SUR LE PIN "); // renvoie 0 si le pin est valide (et connecté)
         Serial.println(pin);
+        code_erreur=20;
     }
 }
 
 void writebetter(Servo servo, int angle)
 {
     int diff_angle = servo.read() - angle;
-    if (diff_angle < -(15-speed) || diff_angle > 15-speed)  // impossible avec les fonctions actuelles sans problème de moteurs, le max est 2.6 et la borne est 5 à vitesse max
+    if (diff_angle < -(15 - speed) || diff_angle > 15 - speed) // impossible avec les fonctions actuelles sans problème de moteurs, le max est 2.6 et la borne est 5 à vitesse max
     {
         Serial.println("ATTENTION! ANGLE DEMANDE IMPORTANT, LE MOTEUR PEUT ETRE DECALE");
+        code_erreur=1;
+
     }
     servo.write(angle);
+}
+
+String getTrame()
+{
+    return String(myservo1.read()) + "|" + String(myservo2.read()) + "|" + String(myservo3.read()) + "|" + String(myservo4.read()) + "|" + String(myservo5.read()) + "|" + String(myservo6.read()) + "|" + String(myservo7.read()) + "|" + String(myservo8.read()) +"|"+ String(t) + "|" +String(speed)+ "|" + String(code_erreur);
 }
 
 float uh(float x)

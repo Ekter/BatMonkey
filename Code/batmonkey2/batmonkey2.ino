@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-Servo myservo;  // create servo object to control a servo
+Servo myservo1;  // create servo object to control a servo
 Servo myservo2;
 Servo myservo3;  // create servo object to control a servo
 Servo myservo4;
@@ -14,7 +14,7 @@ int MAXORMIN = 100;
 int MINORMAX = 0;
 
 void setup() {
-  myservo.attach(3);
+  myservo1.attach(3);
   myservo2.attach(6);
   myservo3.attach(9);
   myservo4.attach(10);
@@ -79,9 +79,9 @@ void e4() {
 }
 
 void monterb1() {
-  myservo.write(MAXORMIN); // Vers arrière
+  myservo1.write(MAXORMIN); // Vers arrière
   myservo2.write(MAXORMIN); // Vers arrière
-  myservo.write(MINORMAX);
+  myservo1.write(MINORMAX);
 } 
 
 void monterb2() {
@@ -104,7 +104,7 @@ void monterJ2() {
 
 
 void baisserb1() {         // pas forcement b1 (EXEMPLE)
-  myservo.write(i * 50 + 64); // le 50 est arbitraire !
+  myservo1.write(i * 50 + 64); // le 50 est arbitraire !
   myservo2.write(180 - i * 40 * 1.4); // le 50 est arbitraire !
 }
 

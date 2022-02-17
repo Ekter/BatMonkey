@@ -11,7 +11,7 @@
 
 #include <Servo.h>
 
-Servo myservo;  // create servo object to control a servo
+Servo myservo1;  // create servo object to control a servo
 Servo myservo2;
 Servo myservo3;  // create servo object to control a servo
 Servo myservo4;
@@ -25,7 +25,7 @@ int previous = 0;
 
 void setup() {
   // set the speed of the motor to 30 RPMs
-  myservo.attach(3);  // attaches the servo on pin 9 to the servo object
+  myservo1.attach(3);  // attaches the servo on pin 9 to the servo object
   myservo2.attach(6);
   myservo3.attach(9);  // attaches the servo on pin 9 to the servo object
   myservo4.attach(10);
@@ -47,7 +47,7 @@ void loop() {
   val = val / 5;   // scale it to use it with the servo (value between 0 and 180)
   myservo3.write(val + 20);                // sets the servo position according to the scaled value
   myservo4.write(180 - val * 1.5);
-  myservo.write(val + 64);                // sets the servo position according to the scaled value
+  myservo1.write(val + 64);                // sets the servo position according to the scaled value
   myservo2.write(180 - val * 1.4);
   delay(15);                           // waits for the servo to get there
   Serial.println(val);

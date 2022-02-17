@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-Servo myservo; // create servo object to control a servo
+Servo myservo1; // create servo object to control a servo
 Servo myservo2;
 Servo myservo3; // create servo object to control a servo
 Servo myservo4;
@@ -17,7 +17,7 @@ int minj2 = 210;
 
 void setup()
 {
-  myservo.attach(8);
+  myservo1.attach(8);
   myservo2.attach(9);
   myservo3.attach(3);
   myservo4.attach(3);
@@ -120,10 +120,10 @@ void monterb1()
 {
   myservo2.write(150);
   delay(250);
-  myservo.write(90);
+  myservo1.write(90);
 
   delay(250);
-  myservo.write(110);
+  myservo1.write(110);
   delay(2050);
 }
 
@@ -160,7 +160,7 @@ void monterJ2()
 
 void baisserb1(int t)
 {
-  myservo.write(110 - t / 1.4);
+  myservo1.write(110 - t / 1.4);
   myservo2.write(150 - t * 1.2);
 }
 
