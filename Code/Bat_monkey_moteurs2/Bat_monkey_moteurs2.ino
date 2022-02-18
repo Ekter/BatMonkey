@@ -15,13 +15,12 @@ float t = 0;
 int total_t = 0;
 int t2 = 0;
 int code_erreur = 0;
+char message_bt = '';
 
 void setup()
 {
     Serial.begin(9600);
     Serial1.begin(9600);
-    while (!Serial1)
-        ;
     attachbetter(myservo1, 8);
     attachbetter(myservo2, 9);
     attachbetter(myservo3, 3);
@@ -41,38 +40,89 @@ void loop()
         {
             t = 0;
         }
-        myservo1.write(f1(t));
-        myservo2.write(f2(t));
-        myservo3.write(f1(t + 64));
-        myservo4.write(f2(t + 64));
-        myservo5.write(f1(t + 128));
-        myservo6.write(f2(t + 128));
-        myservo7.write(f1(t + 192));
-        myservo8.write(f2(t + 192));
+        writebetter(myservo1, f1(t));
+        writebetter(myservo2, f2(t));
+        writebetter(myservo3, f1(t + 64));
+        writebetter(myservo4, f2(t + 64));
+        writebetter(myservo5, f1(t + 128));
+        writebetter(myservo6, f2(t + 128));
+        writebetter(myservo7, f1(t + 192));
+        writebetter(myservo8, f2(t + 192));
         Serial.print("ETAPE:");
         Serial.println(t);
     }
     else
     {
         if (total_t > 100 + t2) // pour n'afficher qu'une fois toutes les 100 ms
-        {
+        {                       // pas nécessaire, juste pour les tests
             Serial.println("EN PAUSE");
             t2 = total_t;
         }
     }
-    delay(15 - speed);     // vitesse max=10 -> boucle en 1280 ms
-    total_t += 15 - speed; // vitesse min=0  -> boucle en 3840 ms   ~ 3 fois plus lent
-    Serial1.println(getTrame());
-    code_erreur=0;
+    delay(15 - speed);     // vitesse max=9 -> boucle en 1536 ms
+    total_t += 15 - speed; // vitesse min=0  -> boucle en 3840 ms   ~ 2.5 fois plus lent
+    Serial1.println(String(myservo1.read()) + "|" + String(myservo2.read()) + "|" + String(myservo3.read()) + "|" + String(myservo4.read()) + "|" + String(myservo5.read()) + "|" + String(myservo6.read()) + "|" + String(myservo7.read()) + "|" + String(myservo8.read()) + "|" + String(t) + "|" + String(speed) + "|" + String(code_erreur));
+    code_erreur = 0;
+    while (Serial1.available() >= 1)
+    {
+        message_bt = Serial1.read();
+        switch (message_bt)
+        {
+        case 'P':
+            monte = false;
+            break;
+        case 'S':
+            monte = true;
+            break;
+        case '0':
+            speed = 0;
+            break;
+        case '1':
+            speed = 1;
+            break;
+        case '2':
+            speed = 2;
+            break;
+        case '3':
+            speed = 3;
+            break;
+        case '4':
+            speed = 4;
+            break;
+        case '5':
+            speed = 5;
+            break;
+        case '6':
+            speed = 6;
+            break;
+        case '7':
+            speed = 7;
+            break;
+        case '8':
+            speed = 8;
+            break;
+        case '9':
+            speed = 9;
+            break;
+        case 'T':
+            while (Serial1.available())
+            {
+                Serial1.read();
+            }
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void attachbetter(Servo servo, int pin)
 {
     if (servo.attach(pin, 0, 180) == 0)
     {                                                        // ,0,180 sert à rien mais renforce la sécurité
-        Serial.print("PROBLEME AVEC LE MOTEUR SUR LE PIN "); // renvoie 0 si le pin est valide (et connecté)
+        Serial.print("PROBLEME AVEC LE MOTEUR SUR LE PIN "); // renvoie 0 si le pin n'est pas valide (et connecté)
         Serial.println(pin);
-        code_erreur=20;
+        code_erreur = 20;
     }
 }
 
@@ -82,15 +132,14 @@ void writebetter(Servo servo, int angle)
     if (diff_angle < -(15 - speed) || diff_angle > 15 - speed) // impossible avec les fonctions actuelles sans problème de moteurs, le max est 2.6 et la borne est 5 à vitesse max
     {
         Serial.println("ATTENTION! ANGLE DEMANDE IMPORTANT, LE MOTEUR PEUT ETRE DECALE");
-        code_erreur=1;
-
+        code_erreur = 1;
     }
     servo.write(angle);
 }
 
 String getTrame()
 {
-    return String(myservo1.read()) + "|" + String(myservo2.read()) + "|" + String(myservo3.read()) + "|" + String(myservo4.read()) + "|" + String(myservo5.read()) + "|" + String(myservo6.read()) + "|" + String(myservo7.read()) + "|" + String(myservo8.read()) +"|"+ String(t) + "|" +String(speed)+ "|" + String(code_erreur);
+    return String(myservo1.read()) + "|" + String(myservo2.read()) + "|" + String(myservo3.read()) + "|" + String(myservo4.read()) + "|" + String(myservo5.read()) + "|" + String(myservo6.read()) + "|" + String(myservo7.read()) + "|" + String(myservo8.read()) + "|" + String(t) + "|" + String(speed) + "|" + String(code_erreur);
 }
 
 float uh(float x)
