@@ -107,7 +107,7 @@ void loop()
         case 'T':
             while (Serial1.available())
             {
-                Serial1.read();
+                Serial1.read(); // completement inutile
             }
             break;
         default:
