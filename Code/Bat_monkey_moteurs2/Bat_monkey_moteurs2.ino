@@ -137,11 +137,6 @@ void writebetter(Servo servo, int angle)
     servo.write(angle);
 }
 
-String getTrame()
-{
-    return String(myservo1.read()) + "|" + String(myservo2.read()) + "|" + String(myservo3.read()) + "|" + String(myservo4.read()) + "|" + String(myservo5.read()) + "|" + String(myservo6.read()) + "|" + String(myservo7.read()) + "|" + String(myservo8.read()) + "|" + String(t) + "|" + String(speed) + "|" + String(code_erreur);
-}
-
 float uh(float x)
 {
     if (x < 0)
