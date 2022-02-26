@@ -19,7 +19,7 @@ function g=f2(x)
 endfunction
 
 function k=descendre1(x)
-    k=(110-x*5/14).*uh(-(x-199.75)).*uh(x+0.25);
+    k=(30+x*0.7).*uh(-(x-199.75)).*uh(x+0.25);
 endfunction
 
 function l=monter1(x)
@@ -27,7 +27,7 @@ function l=monter1(x)
 endfunction
 
 function m=descendre2(x)
-    m=(150-x*0.6).*uh(-(x-199.75)).*uh(x+0.25);
+    m=(130-x*0.6).*uh(-(x-199.75)).*uh(x+0.25);
 endfunction
 
 function l=monter2(x)
@@ -35,23 +35,23 @@ function l=monter2(x)
 endfunction
 
 function g=monter1a(x)
-    g=(38.75).*uh(-(x-4.75)).*uh(x+0.25);
+    g=(170).*uh(-(x-4.75)).*uh(x+0.25);
 endfunction
 
 function g=monter1b(x)
-    g=(1.58*x+38.75).*uh(-(x-44.75)).*uh(x+0.25)
+    g=(170-3.11*x).*uh(-(x-44.75)).*uh(x+0.25)
 endfunction
 
 function g=monter1c(x)
-    g=(110).*uh(-(x-4.75)).*uh(x+0.25);
+    g=(30).*uh(-(x-4.75)).*uh(x+0.25);
 endfunction
 
 function f=monter2a(x)
-    f=(-2.12*x+30.6).*uh(-(x-4.75)).*uh(x+0.25)
+    f=(-2.12*x+10.6).*uh(-(x-4.75)).*uh(x+0.25)
 endfunction
 
 function f=monter2b(x)
-    f=(2.6*x+20).*uh(-(x-49.75)).*uh(x+0.25)
+    f=(2.6*x).*uh(-(x-49.75)).*uh(x+0.25)
 endfunction
 
 t=linspace(0,255 ,256);
