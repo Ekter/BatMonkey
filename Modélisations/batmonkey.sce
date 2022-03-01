@@ -53,20 +53,19 @@ endfunction
 function f=monter2b(x)
     f=(2.6*x).*uh(-(x-49.75)).*uh(x+0.25)
 endfunction
-
+function f=fmieux(x)
+    f(x>250)=30
+    f(x>205 & x<250)=807.5 - (3.11 .* x)
+    f(x>200 & x<205)=170
+    f(x<200)=30+x*0.7
+endfunction
 t=linspace(0,255 ,256);
 
 
 t2=linspace(256,511,256);
 
-plot2d(t,f2(t))
-plot2d(t,f2(t+64))
-plot2d(t,f2(t+128))
-plot2d(t,f2(t+192))
-plot2d(t,f1(t))
-plot2d(t,f1(t+64))
-plot2d(t,f1(t+128))
-plot2d(t,f1(t+192))
+plot2d(t,fmieux(t))
+
 title("courbes des moteurs pour le bat monkey")
 xlabel("t [~ms]")
 ylabel("angle(t) [rad]")
