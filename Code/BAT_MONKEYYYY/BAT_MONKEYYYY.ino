@@ -31,8 +31,8 @@ void setup()
   myservo4.attach(5);
   myservo5.attach(6); // jambe 1
   myservo6.attach(7);
-  myservo7.attach(14); // jambe 2
-  myservo8.attach(13);
+  myservo7.attach(8); // jambe 2
+  myservo8.attach(10);
 }
 
 void loop(){
@@ -40,19 +40,9 @@ void loop(){
   go(i);
   delay(30);
   }
-  delay(100);
-  for (int i=20; i<150;i++){
-  go2(i);
-  delay(30);
-  }
-  delay(100);
+
   for (int i=150; i>20;i--){
   go(i);
-  delay(30);
-  }
-  delay(100);
-  for (int i=150; i>20;i--){
-  go2(i);
   delay(30);
   }
   delay(100);
@@ -61,14 +51,12 @@ void loop(){
 
 void go(int t)
 {
-  myservo1.write(t);
-  myservo2.write(t);
-  myservo3.write(t);
-  myservo4.write(t);    
-}
-void go2(int){
-  myservo5.write(t);
-  myservo6.write(t);
-  myservo7.write(t);
-  myservo8.write(t);
+  myservo1.write(t);//OK
+  myservo2.write(t);//OK
+  myservo3.write(t);//OK
+  myservo4.write(180-t);//OK
+  myservo5.write(180-t);//OK
+  myservo6.write(180-t);//OK
+  myservo7.write(180-t);//OK
+  myservo8.write(t);//OK
   }

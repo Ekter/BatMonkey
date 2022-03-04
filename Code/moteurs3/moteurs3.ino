@@ -31,8 +31,8 @@ void setup()
   attachbetter(myservo4, 5);
   attachbetter(myservo5, 6); // jambe 1
   attachbetter(myservo6, 7);
-  attachbetter(myservo7, 14); // jambe 2
-  attachbetter(myservo8, 13);
+  attachbetter(myservo7, 8); // jambe 2
+  attachbetter(myservo8, 10);
 }
 
 void loop()
@@ -138,13 +138,13 @@ void writebetter(Servo servo, int angle)
 void positionservos(int t)
 {
   writebetter(myservo1, f1(t));
-  writebetter(myservo2, getPhi(myservo1, f2(t)));
+  writebetter(myservo2, toN(getPhi(myservo1, f2(t))));
   writebetter(myservo3, f1(t));
-  writebetter(myservo4, getPhi(myservo3,f2(t)));
-  writebetter(myservo5, f1(t));
-  writebetter(myservo6, getPhi(myservo5,f2(t)));
-  writebetter(myservo7, f1(t));
-  writebetter(myservo8, getPhi(myservo7,f2(t)));
+  writebetter(myservo4, 180-toN(getPhi(myservo3,f2(t))));
+  writebetter(myservo5, 180-f1(t));
+  writebetter(myservo6, 180-toN(getPhi(myservo5,f2(t))));
+  writebetter(myservo7, 180-f1(t));
+  writebetter(myservo8, toN(getPhi(myservo7,f2(t))));
 }
 
 float f1(float x)
@@ -182,17 +182,22 @@ float f2(float t)
 float getPhi(Servo servo, float i)
 //i position de l'arbre par rapport au bras. ex: -1 indique 1 centimètre d'écart, 2 indique que le robot est enfoncé de 2 centimètres dans l'arbre
 {
-  return acos(((i - 8.5 * cos(toAngle(servo.read()))) / 16));
+  return acos(((i - 8.5 * cos(toTheta(servo.read()))) / 16));
 }
 
-float toAngle(float n)
+float toPhi(float a)
 {
-  return n * 3.14 / 180;
+  return -map(a,1.5,-3.14,3.14,-1.5)
+}
+
+float toTheta(float n)
+{
+  return -map(n,0,180,-2.35,2.35)
 }
 
 float toN(float a)
 {
-  return a * 180 / 3.14;
+  return map(a,-2.35,2.35,0,180)
 }
 
 //float ftout(t){
