@@ -19,7 +19,7 @@ function g=f2(x)
 endfunction
 
 function k=descendre1(x)
-    k=(30+x*0.7).*uh(-(x-199.75)).*uh(x+0.25);
+    k=(110-x*5/14).*uh(-(x-199.75)).*uh(x+0.25);
 endfunction
 
 function l=monter1(x)
@@ -27,7 +27,7 @@ function l=monter1(x)
 endfunction
 
 function m=descendre2(x)
-    m=(130-x*0.6).*uh(-(x-199.75)).*uh(x+0.25);
+    m=(150-x*0.6).*uh(-(x-199.75)).*uh(x+0.25);
 endfunction
 
 function l=monter2(x)
@@ -35,37 +35,38 @@ function l=monter2(x)
 endfunction
 
 function g=monter1a(x)
-    g=(170).*uh(-(x-4.75)).*uh(x+0.25);
+    g=(38.75).*uh(-(x-4.75)).*uh(x+0.25);
 endfunction
 
 function g=monter1b(x)
-    g=(170-3.11*x).*uh(-(x-44.75)).*uh(x+0.25)
+    g=(1.58*x+38.75).*uh(-(x-44.75)).*uh(x+0.25)
 endfunction
 
 function g=monter1c(x)
-    g=(30).*uh(-(x-4.75)).*uh(x+0.25);
+    g=(110).*uh(-(x-4.75)).*uh(x+0.25);
 endfunction
 
 function f=monter2a(x)
-    f=(-2.12*x+10.6).*uh(-(x-4.75)).*uh(x+0.25)
+    f=(-2.12*x+30.6).*uh(-(x-4.75)).*uh(x+0.25)
 endfunction
 
 function f=monter2b(x)
-    f=(2.6*x).*uh(-(x-49.75)).*uh(x+0.25)
+    f=(2.6*x+20).*uh(-(x-49.75)).*uh(x+0.25)
 endfunction
 
-
-function k=getPhi(x)
-    k=acos(((-1 - 8.5 .* cos(t/255*3.14)) / 16))
-endfunction
 t=linspace(0,255 ,256);
-
 
 
 t2=linspace(256,511,256);
 
-plot2d(t,getPhi(t))
-
+plot2d(t,f2(t))
+plot2d(t,f2(t+64))
+plot2d(t,f2(t+128))
+plot2d(t,f2(t+192))
+plot2d(t,f1(t))
+plot2d(t,f1(t+64))
+plot2d(t,f1(t+128))
+plot2d(t,f1(t+192))
 title("courbes des moteurs pour le bat monkey")
 xlabel("t [~ms]")
 ylabel("angle(t) [rad]")
