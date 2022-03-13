@@ -59,14 +59,14 @@ t=linspace(0,255 ,256);
 
 t2=linspace(256,511,256);
 
-plot2d(t,f2(t))
-plot2d(t,f2(t+64))
-plot2d(t,f2(t+128))
-plot2d(t,f2(t+192))
-plot2d(t,f1(t))
-plot2d(t,f1(t+64))
-plot2d(t,f1(t+128))
-plot2d(t,f1(t+192))
+plot2d(t,f2(t),color("green"))
+plot2d(t,f2(t+64),color("blue"))
+plot2d(t,f2(t+128),color("purple"))
+plot2d(t,f2(t+192),color("red"))
+plot2d(t,f1(t),color("green"))
+plot2d(t,f1(t+64),color("blue"))
+plot2d(t,f1(t+128),color("purple"))
+plot2d(t,f1(t+192),color("red"))
 title("courbes des moteurs pour le bat monkey")
 xlabel("t [~ms]")
 ylabel("angle(t) [rad]")
